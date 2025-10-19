@@ -103,7 +103,7 @@ Analyze the provided smart contract code thoroughly and report all findings with
             <CardHeader>
               <CardTitle>Agent Configuration</CardTitle>
               <CardDescription>
-                {isNewAgent ? "Set up" : "Modify"} your AI agent's model, prompt, and MCP servers
+                {isNewAgent ? "Set up" : "Modify"} your AI agent&apos;s model, prompt, and MCP servers
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -149,7 +149,7 @@ Analyze the provided smart contract code thoroughly and report all findings with
                   rows={isNewAgent ? 8 : 12}
                   className="font-mono text-sm"
                 />
-                <p className="text-sm text-muted-foreground">Define the agent's behavior and expertise</p>
+                <p className="text-sm text-muted-foreground">Define the agent&apos;s behavior and expertise</p>
               </div>
 
               {/* MCP Servers */}

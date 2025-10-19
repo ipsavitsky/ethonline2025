@@ -4,11 +4,22 @@ import { Label } from "@/components/ui/label"
 
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Shield, Plus, Play, FileText, Award, Search, Filter, Code, TrendingUp } from "lucide-react"
+import { Shield, Plus, Play, FileText, Award, Search, Filter, Code, TrendingUp, LogOut, Wallet } from "lucide-react"
+import { useWallet } from "@/contexts/WalletContext"
+import { toast } from "sonner"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 type Mode = "audit" | "builder" | "leaderboard"
 
@@ -16,6 +27,29 @@ export default function UnifiedDashboard() {
   const [mode, setMode] = useState<Mode>("audit")
   const [auditTab, setAuditTab] = useState<"audits" | "new">("audits")
   // Removed builderTab state as it's no longer needed
+  const router = useRouter()
+  const { address, isAuthenticated, logout } = useWallet()
+
+  // Redirect to login if not authenticated
+  if (!isAuthenticated) {
+    router.push('/login')
+    return null
+  }
+
+  const handleLogout = async () => {
+    try {
+      await logout()
+      toast.success('Successfully logged out')
+      router.push('/login')
+    } catch (error) {
+      toast.error('Failed to log out')
+      console.error('Logout error:', error)
+    }
+  }
+
+  const formatAddress = (addr: string) => {
+    return `${addr.slice(0, 6)}...${addr.slice(-4)}`
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -59,9 +93,26 @@ export default function UnifiedDashboard() {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <Button variant="ghost" size="sm" asChild>
-                <Link href="/">Back to Home</Link>
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    <Wallet className="h-4 w-4 mr-2" />
+                    {address ? formatAddress(address) : 'Wallet'}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <div className="px-2 py-1.5 text-sm text-muted-foreground">
+                    {address}
+                  </div>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout}>
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </div>
