@@ -1,6 +1,6 @@
-# AuditChain API Endpoints Specification
+# Watson API Endpoints Specification
 
-This document describes all API endpoints that the Go backend needs to implement for the AuditChain frontend.
+This document describes all API endpoints that the Go backend needs to implement for the Watson frontend.
 
 ## Base URL
 
@@ -49,7 +49,7 @@ Verify SIWE signature and create authenticated session.
 **Request:**
 ```json
 {
-  "message": "example.com wants you to sign in with your Ethereum account:\n0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb\n\nSign in to AuditChain\n\nURI: https://example.com\nVersion: 1\nChain ID: 1\nNonce: 32BytesOfRandomness\nIssued At: 2025-01-01T00:00:00.000Z",
+  "message": "example.com wants you to sign in with your Ethereum account:\n0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb\n\nSign in to Watson\n\nURI: https://example.com\nVersion: 1\nChain ID: 1\nNonce: 32BytesOfRandomness\nIssued At: 2025-01-01T00:00:00.000Z",
   "signature": "0x..."
 }
 ```
@@ -497,7 +497,7 @@ Generate a PDF report for the audit.
 **Response:** `200 OK`
 ```json
 {
-  "report_url": "https://auditchain.app/reports/uuid-here.pdf",
+  "report_url": "https://watson.app/reports/uuid-here.pdf",
   "expires_at": "2025-01-08T00:00:00Z"
 }
 ```

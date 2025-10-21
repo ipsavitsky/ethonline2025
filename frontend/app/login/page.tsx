@@ -33,7 +33,7 @@ export default function LoginPage() {
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-4">
             <Shield className="h-10 w-10 text-primary" />
-            <span className="text-2xl font-bold text-foreground">AuditChain</span>
+            <span className="text-2xl font-bold text-foreground">Watson</span>
           </Link>
           <p className="text-muted-foreground">Sign in with your Web3 wallet</p>
         </div>
@@ -50,15 +50,15 @@ export default function LoginPage() {
               {/* Dev Mode: Simple Mock Login */}
               {DEV_MODE ? (
                 <>
-                  <Button 
-                    className="w-full" 
+                  <Button
+                    className="w-full"
                     size="lg"
                     onClick={handleDevModeLogin}
                   >
                     <Zap className="mr-2 h-5 w-5" />
                     Login (Dev Mode)
                   </Button>
-                  
+
                   <div className="p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
                     <p className="text-sm text-yellow-600 dark:text-yellow-400 text-center font-medium">
                       🔧 Development Mode
@@ -73,8 +73,8 @@ export default function LoginPage() {
                 <ConnectKitButton.Custom>
                   {({ isConnected, show, truncatedAddress, ensName }) => {
                     return (
-                      <Button 
-                        className="w-full" 
+                      <Button
+                        className="w-full"
                         size="lg"
                         onClick={show}
                       >
@@ -94,7 +94,7 @@ export default function LoginPage() {
                   }}
                 </ConnectKitButton.Custom>
               )}
-              
+
               {!DEV_MODE && (
                 <div className="text-sm text-muted-foreground space-y-2">
                   <p className="font-medium">Supported wallets:</p>
@@ -123,9 +123,9 @@ export default function LoginPage() {
           <div className="mt-6 text-center">
             <p className="text-sm text-muted-foreground">
               Don&apos;t have a wallet?{" "}
-              <a 
-                href="https://metamask.io/download/" 
-                target="_blank" 
+              <a
+                href="https://metamask.io/download/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline"
               >

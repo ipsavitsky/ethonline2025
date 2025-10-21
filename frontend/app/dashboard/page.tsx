@@ -60,7 +60,7 @@ export default function UnifiedDashboard() {
             <div className="flex items-center gap-8">
               <Link href="/" className="flex items-center gap-2">
                 <Shield className="h-8 w-8 text-primary" />
-                <span className="text-xl font-bold text-foreground">AuditChain</span>
+                <span className="text-xl font-bold text-foreground">Watson</span>
               </Link>
               <div className="hidden md:flex items-center gap-2 px-1 py-1 bg-muted rounded-lg">
                 <Button

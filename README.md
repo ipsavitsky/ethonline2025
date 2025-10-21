@@ -3,7 +3,7 @@
 This is a submission for the Ethonline 2025 event
 
 ## Structure
-- `frontend/` - Next.js frontend for the AuditChain platform
+- `frontend/` - Next.js frontend for the Watson platform
 - `backend/` - Go backend (coming soon)
 
 ## Setup

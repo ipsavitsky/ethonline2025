@@ -39,7 +39,7 @@ export async function signInWithEthereum(
     const message = new SiweMessage({
       domain: window.location.host,
       address,
-      statement: 'Sign in to AuditChain',
+      statement: 'Sign in to Watson',
       uri: window.location.origin,
       version: '1',
       chainId,
@@ -114,5 +114,3 @@ export async function signOut(): Promise<void> {
     console.error('Logout error:', error);
   }
 }
-
-

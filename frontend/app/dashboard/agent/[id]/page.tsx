@@ -69,7 +69,7 @@ Analyze the provided smart contract code thoroughly and report all findings with
           <div className="flex items-center justify-between">
             <Link href="/dashboard" className="flex items-center gap-2">
               <Shield className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold text-foreground">AuditChain</span>
+              <span className="text-xl font-bold text-foreground">Watson</span>
             </Link>
             <Button variant="ghost" size="sm" asChild>
               <Link href="/dashboard">
@@ -161,7 +161,7 @@ Analyze the provided smart contract code thoroughly and report all findings with
 
                 {/* Hosted MCPs */}
                 <div className="space-y-2">
-                  <p className="text-sm font-medium text-foreground">Hosted by AuditChain</p>
+                  <p className="text-sm font-medium text-foreground">Hosted by Watson</p>
                   <div className="space-y-2">
                     {[
                       {

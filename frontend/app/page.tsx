@@ -12,7 +12,7 @@ export default function HomePage() {
             <div className="flex items-center gap-8">
               <Link href="/" className="flex items-center gap-2">
                 <Shield className="h-8 w-8 text-primary" />
-                <span className="text-xl font-bold text-foreground">AuditChain</span>
+                <span className="text-xl font-bold text-foreground">Watson</span>
               </Link>
               <div className="hidden md:flex items-center gap-6">
                 <Link
@@ -224,10 +224,10 @@ export default function HomePage() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <Shield className="h-6 w-6 text-primary" />
-              <span className="font-bold text-foreground">AuditChain</span>
+              <span className="font-bold text-foreground">Watson</span>
             </div>
             <div className="text-sm text-muted-foreground">
-              © 2025 AuditChain. Securing Ethereum, one contract at a time.
+              © 2025 Watson
             </div>
           </div>
         </div>

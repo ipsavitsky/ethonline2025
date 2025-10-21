@@ -9,18 +9,18 @@ export const config = createConfig({
   chains: [mainnet, sepolia],
   connectors: [
     injected(), // MetaMask, Brave Wallet, etc.
-    walletConnect({ 
+    walletConnect({
       projectId,
       metadata: {
-        name: 'AuditChain',
+        name: 'Watson',
         description: 'Decentralized smart contract audit platform',
-        url: typeof window !== 'undefined' ? window.location.origin : 'https://auditchain.app',
-        icons: ['https://auditchain.app/icon.png'],
+        url: typeof window !== 'undefined' ? window.location.origin : 'https://watson.app',
+        icons: ['https://watson.app/icon.png'],
       },
       showQrModal: true,
     }),
-    coinbaseWallet({ 
-      appName: 'AuditChain',
+    coinbaseWallet({
+      appName: 'Watson',
     }),
   ],
   transports: {
