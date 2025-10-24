@@ -4,7 +4,7 @@ This is a submission for the Ethonline 2025 event
 
 ## Structure
 - `frontend/` - Next.js frontend for the Watson platform
-- `backend/` - Go backend (coming soon)
+- `backend/` - Go backend
 
 ## Setup
 
@@ -21,21 +21,30 @@ First, change your working directory to `frontend/`: `cd frontend`
 
 ## Commands
 
+### For frontend
+Ran from `frontend/`
 ```bash
-# Run development server
+# Run development frontend server
 bun run dev
 
-# Run linter
+# Run linter for frontend
 bun run lint
 
-# Build for production
+# Build frontend for production
 bun run build
 
-# Start production server
+# Start production frontend server
 bun run start
 ```
 
-## Development Mode
+### For backend
+Ran from `backend/`
+```bash
+# To run the backend
+go run cmd/server/main.go
+```
+
+## Frontend development mode
 
 The frontend includes a **development mode** that allows you to work on the UI without requiring:
 - A running backend

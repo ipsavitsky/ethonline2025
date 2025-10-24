@@ -23,5 +23,22 @@
         gopls
       ];
     };
+
+    packages.${system}.watson-backend = pkgs.buildGoModule {
+      pname = "watson-backend";
+      version = "0.1.0";
+      src = ./backend;
+      vendorHash = null;
+      subPackages = [ "cmd/server" ];
+      nativeBuildInputs = with pkgs; [ pkg-config ];
+      buildInputs = with pkgs; [ sqlite ];
+      postInstall = ''
+        mkdir -p $out/share/watson
+        cp -r $src/internal/db/migrations $out/share/watson/
+      '';
+    };
+
+    nixosModules.watson-backend = import ./nix/module.nix;
+    nixosModules.default = self.nixosModules.watson-backend;
   };
 }

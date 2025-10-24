@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/joho/godotenv"
 
 	"watson/internal/app"
 	"watson/internal/db"
@@ -33,6 +34,11 @@ func must(k string) string {
 }
 
 func main() {
+	// Load .env file
+	if err := godotenv.Load(); err != nil {
+		log.Printf("Warning: .env file not found: %v", err)
+	}
+
 	dsn := app.EnvOr("SQLITE_DSN", "file:app.db?_foreign_keys=on&_busy_timeout=5000")
 	sql := db.MustOpenSQLite(dsn)
 	defer sql.Close()
