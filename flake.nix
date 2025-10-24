@@ -19,6 +19,8 @@
         vtsls
         tailwindcss-language-server
         claude-code
+        go
+        gopls
       ];
     };
   };
