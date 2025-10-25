@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 
@@ -30,10 +29,27 @@ type App struct {
 }
 
 func (a *App) Routes(mux *http.ServeMux) {
+	// Auth endpoints (no authentication required)
 	mux.HandleFunc("POST /auth/nonce", a.handleNonce)
 	mux.HandleFunc("POST /auth/verify", a.handleVerify)
-	mux.HandleFunc("GET /me", a.handleMe)
+	mux.HandleFunc("GET /auth/me", a.handleMe)
 	mux.HandleFunc("POST /auth/logout", a.handleLogout)
+
+	// Agent endpoints (authentication required)
+	mux.Handle("GET /agents", a.authMiddleware(http.HandlerFunc(a.handleGetAgents)))
+	mux.Handle("GET /agents/{id}", a.authMiddleware(http.HandlerFunc(a.handleGetAgent)))
+	mux.Handle("POST /agents", a.authMiddleware(http.HandlerFunc(a.handleCreateAgent)))
+	mux.Handle("PUT /agents/{id}", a.authMiddleware(http.HandlerFunc(a.handleUpdateAgent)))
+	mux.Handle("DELETE /agents/{id}", a.authMiddleware(http.HandlerFunc(a.handleDeleteAgent)))
+
+	// MCP servers endpoint (authentication required)
+	mux.Handle("GET /mcp-servers", a.authMiddleware(http.HandlerFunc(a.handleGetMCPServers)))
+
+	// Audit endpoints (authentication required)
+	mux.Handle("GET /audits", a.authMiddleware(http.HandlerFunc(a.handleGetAudits)))
+	mux.Handle("GET /audits/{id}", a.authMiddleware(http.HandlerFunc(a.handleGetAudit)))
+	mux.Handle("POST /audits", a.authMiddleware(http.HandlerFunc(a.handleCreateAudit)))
+	mux.Handle("POST /audits/{id}/start", a.authMiddleware(http.HandlerFunc(a.handleStartAudit)))
 }
 
 // ---------- Handlers ----------
@@ -212,12 +228,4 @@ func readSID(r *http.Request, name string) (string, bool) {
 		return "", false
 	}
 	return c.Value, true
-}
-
-// tiny env sugar (чтобы main.go не пух)
-func EnvOr(key, def string) string {
-	if v := os.Getenv(key); v != "" {
-		return v
-	}
-	return def
 }
