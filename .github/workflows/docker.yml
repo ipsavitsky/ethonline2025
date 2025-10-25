@@ -1,0 +1,43 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Build Docker image with Nix
+        run: nix build .#watson-backend-docker
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Load and tag image
+        run: |
+          docker load < result
+          docker tag watson-backend:latest ghcr.io/${{ github.repository_owner }}/watson-backend:latest
+          docker tag watson-backend:latest ghcr.io/${{ github.repository_owner }}/watson-backend:${{ github.sha }}
+
+      - name: Push to GHCR
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/watson-backend:latest
+          docker push ghcr.io/${{ github.repository_owner }}/watson-backend:${{ github.sha }}

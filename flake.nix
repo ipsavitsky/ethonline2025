@@ -25,19 +25,41 @@
       ];
     };
 
-    packages.${system}.watson-backend = buildGoModule {
-      pname = "watson-backend";
-      version = "0.1.0";
-      src = ./backend;
-      vendorHash = "sha256-kTNa+Nk2HppQvmV8BPZ6AP6/a7GwWDxu5peT7cVAhVA=";
-      subPackages = [ "cmd/server" ];
-      nativeBuildInputs = with pkgs; [ pkg-config ];
-      buildInputs = with pkgs; [ sqlite ];
-      proxyVendor = true;
-      postInstall = ''
-        mkdir -p $out/share/watson
-        cp -r $src/internal/db/migrations $out/share/watson/
-      '';
+    packages.${system} = {
+      watson-backend = buildGoModule {
+        pname = "watson-backend";
+        version = "0.1.0";
+        src = ./backend;
+        vendorHash = "sha256-kTNa+Nk2HppQvmV8BPZ6AP6/a7GwWDxu5peT7cVAhVA=";
+        subPackages = [ "cmd/server" ];
+        nativeBuildInputs = with pkgs; [ pkg-config ];
+        buildInputs = with pkgs; [ sqlite ];
+        proxyVendor = true;
+        postInstall = ''
+          mkdir -p $out/share/watson
+          cp -r $src/internal/db/migrations $out/share/watson/
+        '';
+      };
+
+      watson-backend-docker = pkgs.dockerTools.buildImage {
+        name = "watson-backend";
+        tag = "latest";
+        created = "now";
+        copyToRoot = pkgs.buildEnv {
+          name = "image-root";
+          paths = [ self.packages.${system}.watson-backend pkgs.sqlite ];
+          pathsToLink = [ "/bin" "/share" "/lib" ];
+        };
+        config = {
+          Cmd = [ "/bin/server" ];
+          ExposedPorts = {
+            "8080/tcp" = {};
+          };
+          Env = [
+            "PATH=/bin"
+          ];
+        };
+      };
     };
 
     nixosModules.watson-backend = import ./nix/module.nix;
