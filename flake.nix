@@ -10,6 +10,7 @@
         "claude-code"
       ];
     };
+    buildGoModule = pkgs.buildGo125Module or pkgs.buildGoModule;
   in {
     devShells.${system}.default = pkgs.mkShell {
       buildInputs = with pkgs; [
@@ -24,14 +25,15 @@
       ];
     };
 
-    packages.${system}.watson-backend = pkgs.buildGoModule {
+    packages.${system}.watson-backend = buildGoModule {
       pname = "watson-backend";
       version = "0.1.0";
       src = ./backend;
-      vendorHash = null;
+      vendorHash = "sha256-kTNa+Nk2HppQvmV8BPZ6AP6/a7GwWDxu5peT7cVAhVA=";
       subPackages = [ "cmd/server" ];
       nativeBuildInputs = with pkgs; [ pkg-config ];
       buildInputs = with pkgs; [ sqlite ];
+      proxyVendor = true;
       postInstall = ''
         mkdir -p $out/share/watson
         cp -r $src/internal/db/migrations $out/share/watson/
