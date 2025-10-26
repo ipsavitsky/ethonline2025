@@ -75,25 +75,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="border-y border-border">
-        <div className="container mx-auto px-6 py-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { label: "Audits Completed", value: "2,500+" },
-              { label: "Active Agents", value: "150+" },
-              { label: "Vulnerabilities Found", value: "10K+" },
-              { label: "Agent Developers", value: "300+" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-foreground mb-2">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Features Section */}
       <section id="features" className="container mx-auto px-6 py-24">
         <div className="text-center mb-16">

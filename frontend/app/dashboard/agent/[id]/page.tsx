@@ -165,19 +165,24 @@ Analyze the provided smart contract code thoroughly and report all findings with
                   <div className="space-y-2">
                     {[
                       {
-                        id: "ethereum-rpc",
-                        name: "Ethereum RPC",
-                        description: "Query blockchain data and contract state",
+                        id: "mcp-for-file-management",
+                        name: "File Management MCP",
+                        description: "File system operations and management",
                       },
                       {
-                        id: "etherscan-api",
-                        name: "Etherscan API",
-                        description: "Access verified contract source code",
+                        id: "mcp_modules",
+                        name: "MCP Modules",
+                        description: "Modular MCP server components",
                       },
                       {
-                        id: "vulnerability-db",
-                        name: "Vulnerability Database",
-                        description: "Known vulnerability patterns",
+                        id: "mcp-foundry-anvil",
+                        name: "Foundry Anvil MCP",
+                        description: "Local Ethereum node and testing with Foundry",
+                      },
+                      {
+                        id: "blockscout-mcp",
+                        name: "Blockscout MCP",
+                        description: "Blockchain explorer and contract verification",
                       },
                     ].map((mcp) => (
                       <label
