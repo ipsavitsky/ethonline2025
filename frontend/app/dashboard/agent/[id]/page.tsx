@@ -172,7 +172,7 @@ Analyze the provided smart contract code thoroughly and report all findings with
                       {
                         id: "mcp_modules",
                         name: "MCP Modules",
-                        description: "Modular MCP server components",
+                        description: "Smart contract analysis with Slither, compilation with solc-x, and metrics",
                       },
                       {
                         id: "mcp-foundry-anvil",
